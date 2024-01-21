@@ -1,0 +1,13 @@
+<!-- templates/filtered_notes.html -->
+
+{% extends "base.html" %}
+{% block title %}Filtered Notes{% endblock %}
+{% block content %}
+<h1 align="center">{{ user.first_name }}'s Filtered Notes</h1>
+
+<ul class="list-group list-group-flush" id="notes">
+    {% for note in filtered_notes %}
+    <li class="list-group-item">{{ note }}</li>
+    {% endfor %}
+</ul>
+{% endblock %}
