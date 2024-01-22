@@ -110,4 +110,4 @@ def business_login():
         else:
             flash('Email does not exist.', category='error')
 
-    return render_template("business-login.html", user=current_user)
+    return render_template("business_login.html", user=current_user)
