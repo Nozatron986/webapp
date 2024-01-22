@@ -31,7 +31,7 @@
         <div class="input-group-append">
             <button class="btn btn-outline-secondary" onclick="search()">Search</button>
             <button class="btn btn-outline-secondary" onclick="clearSearch()">
-                <i class="fas fa-times"></i> <!-- Font Awesome icon for 'times' (cross) -->
+                &times;
             </button>
         </div>
     </div>
@@ -41,7 +41,7 @@
     {% for note in user.notes %}
     <li class="list-group-item">
         {{ note.data }}
-        <-- <button type="button" class="close" onClick='deleteNote({{ note.id }})' <span aria-hidden="true">
+        <-- <button type="button" class="close" onclick='deleteNote({{ note.id }})' <span aria-hidden="true">
             &times;</span>
             </button>
     </li>
@@ -57,27 +57,6 @@
 </form>
 
 <script>
-    function search() {
-        var searchTerm = document.getElementById('searchInput').value;
-
-        // Make an AJAX request to the server
-        fetch('/search', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-            },
-            body: new URLSearchParams({
-                'keyword': searchTerm,
-            }),
-        })
-            .then(response => response.text())
-            .then(data => {
-                // Update the UI with the filtered notes
-                document.getElementById('notes').innerHTML = data;
-            })
-            .catch(error => console.error('Error:', error));
-    }
-
     function clearSearch() {
         document.getElementById('searchInput').value = '';
         // Reset the UI to show all notes

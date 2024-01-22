@@ -22,7 +22,6 @@ def home():
 
     return render_template("home.html", user=current_user)
 
-
 @views.route('/delete-note', methods=['POST'])
 def delete_note():  
     note = json.loads(request.data) # this function expects a JSON from the INDEX.js file 
@@ -38,8 +37,8 @@ def delete_note():
 @views.route('/search', methods=['POST'])
 @login_required
 def search():
-    keyword = request.form.get('keyword').lower()
+    keyword = request.form.get('keyword')
 
-    filtered_notes = [note.data for note in current_user.notes if keyword.lower() in note.data.lower()]
+    filtered_notes = [note for note in current_user.notes if keyword.lower() in note.data.lower()]
 
     return render_template('filtered_notes.html', user=current_user, filtered_notes=filtered_notes)

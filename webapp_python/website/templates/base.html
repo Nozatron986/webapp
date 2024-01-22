@@ -25,6 +25,7 @@
                 {% else %}
                 <a class="nav-item nav-link" id="login" href="/login">Login</a>
                 <a class="nav-item nav-link" id="signUp" href="/sign-up">Sign Up</a>
+                <a class="nav-item nav-link" id="bussiness_sign_up" href="/bussiness_sign_up">Business?</a>
                 {% endif %}
             </div>
         </div>
@@ -61,12 +62,39 @@
 
     {% block javascript %}
     <script type="text/javascript">
+        function search() {
+            if (document.getElementById('searchInput').value == '') {
+                return
+            }
+            var searchTerm = document.getElementById('searchInput').value;
+
+            // Make an AJAX request to the server
+            fetch('/search', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: new URLSearchParams({
+                    'keyword': searchTerm,
+                }),
+            })
+                .then(response => response.text())
+                .then(data => {
+                    // Update the UI with the filtered notes
+                    document.getElementById('notes').innerHTML = data;
+                })
+                .catch(error => console.error('Error:', error));
+        }
         function deleteNote(noteId) {
+            var v = document.getElementById('searchInput').value
             fetch("/delete-note", {
                 method: "POST",
                 body: JSON.stringify({ noteId: noteId }),
             }).then((_res) => {
                 window.location.href = "/";
+                document.getElementById('searchInput').innerHTML = v
+                //search()
+                //console.log(document.getElementById('searchInput').value)
             });
         }
     </script>
