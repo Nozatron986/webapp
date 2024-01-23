@@ -20,10 +20,10 @@
         <div class="collapse navbar-collapse" id="navbar">
             <div class="navbar-nav">
                 {% if user.is_authenticated %}
-                <a class="nav-item nav-link" id="home" href="/">Home</a>
+                <a class="nav-item nav-link" id="home" href="/customers">Home</a>
                 <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
                 {% else %}
-                <a class="nav-item nav-link" id="login" href="/login">Login</a>
+                <a class="nav-item nav-link" id="login" href="/">Login</a>
                 <a class="nav-item nav-link" id="signUp" href="/sign-up">Sign Up</a>
                 <a class="nav-item nav-link" id="bussiness_sign_up" href="/bussiness_sign_up">Business?</a>
                 <a class="nav-item nav-link" id="business_login" href="/business-login">Bussiness Login</a>
@@ -92,7 +92,7 @@
                 method: "POST",
                 body: JSON.stringify({ noteId: noteId }),
             }).then((_res) => {
-                window.location.href = "/";
+                window.location.href = "/home";
                 document.getElementById('searchInput').innerHTML = v
                 //search()
                 //console.log(document.getElementById('searchInput').value)
