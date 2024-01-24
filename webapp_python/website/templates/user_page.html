@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Page</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr@4.6.9/dist/flatpickr.min.css">
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Add custom styles if needed */
+        body {
+            padding: 20px;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1 class="mt-4">Welcome to {{ user.first_name }}'s Page</h1>
+        <p>Email: {{ user.email }}</p>
+
+        <!-- Add more content as needed -->
+
+        <form>
+            <div class="form-group">
+                <label for="datetimepicker">Pick a Date and Time Range:</label>
+                <input type="text" class="form-control" id="datetimepicker" name="datetimepicker" data-input>
+            </div>
+        </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr@4.6.9/dist/flatpickr.min.js"></script>
+    <script>
+        flatpickr('#datetimepicker', {
+            enableTime: true, // Enable time selection
+            dateFormat: "Y-m-d H:i", // Date and time format
+            minDate: "today", // Minimum date is today
+            minuteIncrement: 15, // Set the minute increment to 15 minutes
+            time_24hr: true, // Use 24-hour time format
+        });
+    </script>
+
+    <!-- Bootstrap JS and Popper.js (for Bootstrap modal, dropdown, etc.) -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>

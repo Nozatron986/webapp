@@ -14,4 +14,7 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(150))
     first_name = db.Column(db.String(150))
     is_customer = db.Column(db.Boolean, default=True)
+    business_type = db.Column(db.String(150))  # Add this line for the business type
+    business_time_available = db.column(db.String(150))
+    business_time_used = db.column(db.String(150))
     notes = db.relationship('Note')

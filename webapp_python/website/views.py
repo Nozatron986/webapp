@@ -6,6 +6,13 @@ import json
 
 views = Blueprint('views', __name__)
 
+@views.route('/user/<username>')
+@login_required
+def user_page(username):
+    user = User.query.filter_by(first_name=username).first()
+
+    return render_template('user_page.html', user=user)
+
 @views.route('/customers', methods=['GET', 'POST'])
 @login_required
 def customer_home():
@@ -65,10 +72,16 @@ def delete_note():
 def search():
     keyword = request.form.get('keyword')
 
-    all_users = User.query.all()
-
     if current_user.is_customer:
-        filtered_notes = [note for note in all_users if keyword.lower() in note.data.lower()]
+        user_names = []
+        all_users = User.query.all()
+        for u in all_users:
+            if u.is_customer:
+                pass
+            else:
+                if keyword.lower() in u.first_name.lower():
+                    user_names.append(u.first_name)
+        return render_template('filtered_notes.html', user=current_user, filtered_notes=user_names)
     else:
         filtered_notes = [note for note in current_user.notes if keyword.lower() in note.data.lower()]
 

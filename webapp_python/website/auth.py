@@ -42,7 +42,9 @@ def sign_up():
         password2 = request.form.get('password2')
 
         user = User.query.filter_by(email=email).first()
-        if user:
+        if User.query.filter_by(first_name=first_name).first():
+            flash('Name already exists.', category='error')
+        elif user:
             flash('Email already exists.', category='error')
         elif len(email) < 4:
             flash('Email must be greater than 3 characters.', category='error')
@@ -67,8 +69,11 @@ def bussiness_sign_up():
     if request.method == 'POST':
         email = request.form.get('email')
         first_name = request.form.get('firstName')
+        business_type = request.form.get('businessType')
         password1 = request.form.get('password1')
         password2 = request.form.get('password2')
+        startTime = request.form.get('timeStart')
+        endTime = request.form.get('timeEnd')
 
         user = User.query.filter_by(email=email).first()
         if user:
@@ -76,17 +81,19 @@ def bussiness_sign_up():
         elif len(email) < 4:
             flash('Email must be greater than 3 characters.', category='error')
         elif len(first_name) < 2:
-            flash('Bussiness name must be greater than 1 character.', category='error')
+            flash('Business name must be greater than 1 character.', category='error')
         elif password1 != password2:
             flash('Passwords don\'t match.', category='error')
         elif len(password1) < 7:
             flash('Password must be at least 7 characters.', category='error')
         else:
-            new_user = User(email=email, first_name=first_name, password=generate_password_hash(password1), is_customer=False)
+            new_user = User(email=email, first_name=first_name, business_type=business_type, password=generate_password_hash(password1), is_customer=False, business_time_available='0'*32, business_time_used='0'*32)
             db.session.add(new_user)
             db.session.commit()
             login_user(new_user, remember=True)
             flash('Account created!', category='success')
+            flash(startTime, category='success')
+            flash(endTime, category='success')
             return redirect(url_for('views.home'))
 
     return render_template("bussiness_sign_up.html", user=current_user)

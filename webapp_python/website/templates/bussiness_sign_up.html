@@ -1,5 +1,35 @@
-{% extends "base.html" %} {% block title %}Sign Up{% endblock %} {% block
-content %}
+{% extends "base.html" %}
+{% block title %}Sign Up{% endblock %}
+{% block content %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Page</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr@4.6.9/dist/flatpickr.min.css">
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap DateTimePicker CSS and JavaScript -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <style>
+        /* Add custom styles if needed */
+        body {
+            padding: 20px;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
 <form method="POST">
     <h3 align="center">Sign Up</h3>
     <div class="form-group">
@@ -7,18 +37,33 @@ content %}
         <input type="email" class="form-control" id="email" name="email" placeholder="Enter email" />
     </div>
     <div class="form-group">
-        <label for="firstName">Bussiness Name</label>
-        <input type="text" class="form-control" id="firstName" name="firstName" placeholder="Enter bussiness name" />
+        <label for="firstName">Business Name</label>
+        <input type="text" class="form-control" id="firstName" name="firstName" placeholder="Enter business name" />
+    </div>
+    <div class="form-group">
+        <label for="businessType">Business Type</label>
+        <select class="form-control" id="businessType" name="businessType">
+            <option value="option1">Hairdresser</option>
+            <option value="option2">Restaurant</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="startTime">Start Time</label>
+        <input type="text" class="form-control" id="startTime" name="startTime" placeholder="Enter Start Time" />
+    </div>
+    <div class="form-group">
+        <label for="startTime">Closing Time</label>
+        <input type="text" class="form-control" id="endTime" name="endTime" placeholder="Enter Closing Time" />
     </div>
     <div class="form-group">
         <label for="password1">Password</label>
         <input type="password" class="form-control" id="password1" name="password1" placeholder="Enter password" />
     </div>
     <div class="form-group">
-        <label for="password2">Password (Confirm)</label>
+        <label for="password2">Confirm Password</label>
         <input type="password" class="form-control" id="password2" name="password2" placeholder="Confirm password" />
     </div>
-    <br />
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>
+
 {% endblock %}

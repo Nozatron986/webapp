@@ -1,18 +1,30 @@
-<!-- templates/filtered_notes.html -->
-
 {% extends "base.html" %}
 {% block title %}Filtered Notes{% endblock %}
 {% block content %}
 <h1 align="center">Filtered Notes</h1>
 
+{% if not user.is_customer %}
+
 <ul class="list-group list-group-flush" id="notes">
     {% for note in filtered_notes %}
-    <li class="list-group-item">{{ note.data }} <-- {% if not user.is_customer %} <button type="button" class="close"
-            onclick='deleteNote({{ note.id }})'>
+    <li class="list-group-item">
+        {{ note.data }} <-- <button type="button" class="close" onclick='deleteNote({{ note.id }})'>
             <span aria-hidden="true">&times;</span>
             </button>
-            {% endif %}
     </li>
     {% endfor %}
 </ul>
+
+{% else %}
+
+<ul class="list-group list-group-flush" id="notes">
+    {% for note in filtered_notes %}
+    <li class="list-group-item" onclick="goto('{{ note }}')">
+        {{ note }}
+    </li>
+    {% endfor %}
+</ul>
+
+{% endif %}
+
 {% endblock %}
