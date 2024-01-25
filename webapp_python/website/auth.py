@@ -72,8 +72,15 @@ def bussiness_sign_up():
         business_type = request.form.get('businessType')
         password1 = request.form.get('password1')
         password2 = request.form.get('password2')
-        startTime = request.form.get('timeStart')
-        endTime = request.form.get('timeEnd')
+        startTime = request.form.get('start')
+        endTime = request.form.get('end')
+
+        time_available = ['0' for _ in range(96)]
+        start_time_int = int(int(startTime[:2])*4+int(startTime[3:])/15)
+        end_time_int = int(int(endTime[:2])*4+int(endTime[3:])/15)
+
+        time_available[start_time_int-1:end_time_int-1] = '5' * (end_time_int - start_time_int)
+        time_available = ''.join(time_available)
 
         user = User.query.filter_by(email=email).first()
         if user:
@@ -87,13 +94,11 @@ def bussiness_sign_up():
         elif len(password1) < 7:
             flash('Password must be at least 7 characters.', category='error')
         else:
-            new_user = User(email=email, first_name=first_name, business_type=business_type, password=generate_password_hash(password1), is_customer=False, business_time_available='0'*32, business_time_used='0'*32)
+            new_user = User(email=email, first_name=first_name, business_type=business_type, password=generate_password_hash(password1), is_customer=False, business_time_available=time_available)
             db.session.add(new_user)
             db.session.commit()
             login_user(new_user, remember=True)
             flash('Account created!', category='success')
-            flash(startTime, category='success')
-            flash(endTime, category='success')
             return redirect(url_for('views.home'))
 
     return render_template("bussiness_sign_up.html", user=current_user)
